@@ -7,11 +7,6 @@
 
 void list_files(char *dir){
   DIR * stream = opendir(dir);
-
-  if (errno) {
-    printf("%s\n", strerror(errno));
-    return;
-  }
   struct dirent *entry;
 
   printf("Printing out files for directory: %s\n", dir); 
@@ -29,10 +24,6 @@ void list_files(char *dir){
 
 void list_dir(char *dir){
   DIR * stream = opendir(dir);
-  if (errno) {
-    printf("%s\n", strerror(errno));
-    return;
-  }
 
   struct dirent *entry;
 
@@ -52,6 +43,7 @@ void list_dir(char *dir){
 void list_both(char *dir){
   list_files(dir);
   list_dir(dir);
+
 }
 
 void total_sizes(){
@@ -103,7 +95,11 @@ int main(int argc, char *argv[]){
    }
 
   dir[strlen(dir)-1] = '\0';
-
+  DIR * stream = opendir(dir);
+  if(errno){
+    printf("%s\n", strerror(errno));
+    return 0;
+  }
   printf("Statistics for directory: %s\n", dir);
   
   list_both(dir);
