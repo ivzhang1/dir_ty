@@ -25,7 +25,7 @@ void list_dir(){
 void total_sizes(){
   DIR * stream = opendir(".");
   struct dirent *entry = readdir(stream);
-  printf("%d SIZE\n", stat(entry
+  //printf("%d SIZE\n", stat(entry));
   
   closedir(stream);
 
@@ -56,7 +56,21 @@ void all_files_recursive(){
 }
 
 
-int main(){
+int main(int argc, char *argv[]){
+
+  char dir[256];
+  printf("Enter a directory name: ");
+  fgets(dir, 256, stdin);
+
+  
+ 
+  while(dir[0] == '\n'){
+    printf("Enter a directory name: ");
+    fgets(dir, 256, stdin);
+
+    //printf("%s\n", dir);
+   }
+  
   list_files();
   return 0;
 }
