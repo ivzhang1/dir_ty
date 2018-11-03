@@ -9,7 +9,7 @@ void list_files(char *dir){
   DIR * stream = opendir(dir);
   struct dirent *entry;
 
-  printf("Printing out files for directory: %s\n", dir); 
+  printf("Files:\n"); 
 
   entry = readdir(stream);
   while(entry){
@@ -27,7 +27,7 @@ void list_dir(char *dir){
 
   struct dirent *entry;
 
-  printf("Printing out directories for directory: %s\n", dir); 
+  printf("Directories:\n"); 
 
   entry = readdir(stream);
   while(entry){
@@ -46,10 +46,22 @@ void list_both(char *dir){
 
 }
 
-void total_sizes(){
-  DIR * stream = opendir(".");
-  struct dirent *entry = readdir(stream);
-  //printf("%d SIZE\n", stat(entry));
+void total_size(char*dir){
+  long size = 0;
+  
+  DIR * stream = opendir(dir);
+  struct dirent *entry;
+  struct stat *file;
+  
+  entry = readdir(stream);
+  while(entry){
+    stat(entry->d_name, file);
+    size += file->st_size;
+    entry = readdir(stream);
+  }
+  
+
+  printf("Size of all files: %lu Bytes\n", size); 
   
   closedir(stream);
 
@@ -101,7 +113,7 @@ int main(int argc, char *argv[]){
     return 0;
   }
   printf("Statistics for directory: %s\n", dir);
-  
+  total_size(dir);
   list_both(dir);
   return 0;
 }
