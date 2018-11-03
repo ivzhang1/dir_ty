@@ -2,10 +2,16 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <errno.h>
+#include <string.h>
 
-void list_files(){
-  DIR * stream = opendir(".");
-  
+void list_files(char *dir){
+  DIR * stream = opendir(dir);
+  if (errno) {
+    printf("%s\n", dir); 
+    printf("%s\n", strerror(errno));
+    return;
+  }
 
   
   closedir(stream);
@@ -67,10 +73,12 @@ int main(int argc, char *argv[]){
   while(dir[0] == '\n'){
     printf("Enter a directory name: ");
     fgets(dir, 256, stdin);
-
     //printf("%s\n", dir);
    }
+
+  dir[strlen(dir)-1] = '\0';
+
   
-  list_files();
+  list_files(dir);
   return 0;
 }
