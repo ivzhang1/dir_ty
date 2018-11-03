@@ -80,18 +80,6 @@ void total_sizes_recursive(){
   
 }
 
-
-void all_files_recursive(){
-  DIR * stream = opendir(".");
-  
-
-  
-  closedir(stream);
-
-  
-}
-
-
 int main(int argc, char *argv[]){
 
   char dir[256];
