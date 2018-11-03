@@ -8,11 +8,21 @@
 void list_files(char *dir){
   DIR * stream = opendir(dir);
   if (errno) {
-    printf("%s\n", dir); 
     printf("%s\n", strerror(errno));
     return;
   }
 
+  struct dirent *entry;
+
+  printf("Printing out files for directory: %s\n", dir); 
+
+  entry = readdir(stream);
+  while(entry){
+    if(entry->d_type != DT_DIR){
+      printf("\t%s\n", entry->d_name);
+    }
+    entry = readdir(stream);
+  }
   
   closedir(stream);
 
