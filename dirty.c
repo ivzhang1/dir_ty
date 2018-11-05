@@ -47,13 +47,12 @@ void list_both(char *dir){
 }
 
 void total_size(char*dir){
-  long size = 0;
+  size_t size = 0;
   
   DIR * stream = opendir(dir);
-  struct dirent *entry;
-  struct stat *file;
+  struct dirent *entry = readdir(stream);
+  struct stat *file = malloc(sizeof(struct stat));
   
-  entry = readdir(stream);
   while(entry){
     stat(entry->d_name, file);
     size += file->st_size;
@@ -61,7 +60,7 @@ void total_size(char*dir){
   }
   
 
-  printf("Size of all files: %lu Bytes\n", size); 
+  printf("Size of all files: %ld Bytes\n", size); 
   
   closedir(stream);
 
