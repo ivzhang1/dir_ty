@@ -62,7 +62,7 @@ void total_size(char*dir){
 
   printf("Size of all files: %ld Bytes\n", size); 
   printf("Size of all files: %ld kb\n",size / 1024);
-  printf("Size of all files: %ld mb\n", ( size / (1024) ) / 2014 );
+  printf("Size of all files: %ld mb\n", ( size / (1024) ) / 1024);
   
   closedir(stream);
 
