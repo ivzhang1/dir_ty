@@ -67,18 +67,6 @@ void total_size(char*dir){
   
 }
 
-void total_sizes_recursive(){
-  DIR * stream = opendir(".");
-
-  
-  
-
-  
-  closedir(stream);
-
-  
-}
-
 int main(int argc, char *argv[]){
 
   char dir[256];
